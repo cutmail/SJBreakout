@@ -20,6 +20,8 @@
 		18B63B291BA5920C003BAA2F /* SJTitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B63B281BA5920C003BAA2F /* SJTitleScene.m */; };
 		18B63B2B1BA59328003BAA2F /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 18B63B2A1BA59328003BAA2F /* config.json */; };
 		18B63B2E1BA59427003BAA2F /* SJPlayScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B63B2D1BA59427003BAA2F /* SJPlayScene.m */; };
+		18B63B311BA5AB48003BAA2F /* spark.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18B63B2F1BA5AB48003BAA2F /* spark.sks */; };
+		18B63B321BA5AB48003BAA2F /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18B63B301BA5AB48003BAA2F /* spark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		18B63B2A1BA59328003BAA2F /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
 		18B63B2C1BA59427003BAA2F /* SJPlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPlayScene.h; sourceTree = "<group>"; };
 		18B63B2D1BA59427003BAA2F /* SJPlayScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPlayScene.m; sourceTree = "<group>"; };
+		18B63B2F1BA5AB48003BAA2F /* spark.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = spark.sks; sourceTree = "<group>"; };
+		18B63B301BA5AB48003BAA2F /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,8 @@
 				18B63B0D1BA5901E003BAA2F /* LaunchScreen.xib */,
 				18B63AF91BA5901E003BAA2F /* Supporting Files */,
 				18B63B2A1BA59328003BAA2F /* config.json */,
+				18B63B2F1BA5AB48003BAA2F /* spark.sks */,
+				18B63B301BA5AB48003BAA2F /* spark.png */,
 			);
 			path = SJBreakout;
 			sourceTree = "<group>";
@@ -226,7 +232,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				18B63B0F1BA5901E003BAA2F /* LaunchScreen.xib in Resources */,
+				18B63B311BA5AB48003BAA2F /* spark.sks in Resources */,
 				18B63B0C1BA5901E003BAA2F /* Images.xcassets in Resources */,
+				18B63B321BA5AB48003BAA2F /* spark.png in Resources */,
 				18B63B2B1BA59328003BAA2F /* config.json in Resources */,
 				18B63B041BA5901E003BAA2F /* GameScene.sks in Resources */,
 				18B63B0A1BA5901E003BAA2F /* Main.storyboard in Resources */,

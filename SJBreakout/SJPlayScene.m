@@ -8,6 +8,12 @@
 
 #import "SJPlayScene.h"
 
+@interface SJPlayScene () <SKPhysicsContactDelegate>
+@end
+
+static const uint32_t blockCategory = 0x1 << 0;
+static const uint32_t ballCategory = 0x1 << 1;
+
 @implementation SJPlayScene
 
 - (id)initWithSize:(CGSize)size {
@@ -15,6 +21,8 @@
     if (self) {
         [self addBlocks];
         [self addPaddle];
+        self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+        self.physicsWorld.contactDelegate = self;
     }
     return self;
 }
@@ -63,9 +71,38 @@ static NSDictionary *config = nil;
     block.userData = @{ @"life" : @(life) }.mutableCopy;
     [self updateBlockAlpha:block];
     
+    block.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:block.size];
+    block.physicsBody.dynamic = NO;
+    block.physicsBody.categoryBitMask = blockCategory;
+    
     [self addChild:block];
     
     return block;
+}
+
+- (void)decreaseBlockLife:(SKNode *)block {
+    int life = [block.userData[@"life"] intValue] - 1;
+    block.userData[@"life"] = @(life);
+    [self updateBlockAlpha:block];
+    
+    if (life < 1) {
+        [self removeNodeWithSpark:block];
+    }
+}
+
+- (void)removeNodeWithSpark:(SKNode *)node {
+    NSString *sparkPath = [[NSBundle mainBundle] pathForResource:@"spark" ofType:@"sks"];
+    SKEmitterNode *spark = [NSKeyedUnarchiver unarchiveObjectWithFile:sparkPath];
+    spark.position = node.position;
+    spark.xScale = spark.xScale = 0.3f;
+    [self addChild:spark];
+    
+    SKAction *fadeOut = [SKAction fadeOutWithDuration:0.3f];
+    SKAction *remove = [SKAction removeFromParent];
+    SKAction *sequence = [SKAction sequence:@[fadeOut, remove]];
+    [spark runAction:sequence];
+    
+    [node removeFromParent];
 }
 
 - (void)updateBlockAlpha:(SKNode *)block {
@@ -83,6 +120,9 @@ static NSDictionary *config = nil;
     SKSpriteNode *paddle = [SKSpriteNode spriteNodeWithColor:[SKColor brownColor] size:CGSizeMake(width, height)];
     paddle.name = @"paddle";
     paddle.position = CGPointMake(CGRectGetMidX(self.frame), y);
+    
+    paddle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:paddle.size];
+    paddle.physicsBody.dynamic = NO;
     
     [self addChild:paddle];
 }
@@ -107,6 +147,19 @@ static NSDictionary *config = nil;
     ball.strokeColor = [SKColor clearColor];
     
     CGPathRelease(path);
+    
+    CGFloat velocityX = [config[@"ball"][@"velocity"][@"x"] floatValue];
+    CGFloat velocityY = [config[@"ball"][@"velocity"][@"y"] floatValue];
+
+    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:radius];
+    ball.physicsBody.affectedByGravity = NO;
+    ball.physicsBody.velocity = CGVectorMake(velocityX, velocityY);
+    ball.physicsBody.restitution = 1.0f;
+    ball.physicsBody.linearDamping = 0;
+    ball.physicsBody.friction = 0;
+    ball.physicsBody.usesPreciseCollisionDetection = YES;
+    ball.physicsBody.categoryBitMask = ballCategory;
+    ball.physicsBody.contactTestBitMask = blockCategory;
     
     [self addChild:ball];
 }
@@ -133,6 +186,26 @@ static NSDictionary *config = nil;
     CGFloat duration = speed * diff;
     SKAction *move = [SKAction moveToX:x duration:duration];
     [[self paddleNode] runAction:move];
+}
+
+#pragma mark - SKPhysicsContactDelegate
+
+- (void)didBeginContact:(SKPhysicsContact *)contact {
+    SKPhysicsBody *firstBody, *secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    } else {
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+    
+    if (firstBody.categoryBitMask & blockCategory) {
+        if (secondBody.categoryBitMask & ballCategory) {
+            [self decreaseBlockLife:firstBody.node];
+        }
+    }
 }
 
 @end
