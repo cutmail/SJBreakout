@@ -14,6 +14,7 @@
     self = [super initWithSize:size];
     if (self) {
         [self addBlocks];
+        [self addPaddle];
     }
     return self;
 }
@@ -70,6 +71,68 @@ static NSDictionary *config = nil;
 - (void)updateBlockAlpha:(SKNode *)block {
     int life = [block.userData[@"life"] intValue];
     block.alpha = life * 0.2f;
+}
+
+#pragma mark - Paddle
+
+- (void)addPaddle {
+    CGFloat width = [config[@"paddle"][@"width"] floatValue];
+    CGFloat height = [config[@"paddle"][@"height"] floatValue];
+    CGFloat y = [config[@"paddle"][@"y"] floatValue];
+    
+    SKSpriteNode *paddle = [SKSpriteNode spriteNodeWithColor:[SKColor brownColor] size:CGSizeMake(width, height)];
+    paddle.name = @"paddle";
+    paddle.position = CGPointMake(CGRectGetMidX(self.frame), y);
+    
+    [self addChild:paddle];
+}
+
+- (SKNode *)paddleNode {
+    return [self childNodeWithName:@"paddle"];
+}
+
+#pragma mark - Ball
+
+- (void)addBall {
+    CGFloat radius = [config[@"ball"][@"radius"] floatValue];
+    
+    SKShapeNode *ball = [SKShapeNode node];
+    ball.name = @"ball";
+    ball.position = CGPointMake(CGRectGetMidX([self paddleNode].frame), CGRectGetMaxY([self paddleNode].frame) + radius);
+    
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddArc(path, NULL, 0, 0, radius, 0, M_PI * 2, YES);
+    ball.path = path;
+    ball.fillColor = [SKColor yellowColor];
+    ball.strokeColor = [SKColor clearColor];
+    
+    CGPathRelease(path);
+    
+    [self addChild:ball];
+}
+
+- (SKNode *)ballNode {
+    return [self childNodeWithName:@"ball"];
+}
+
+#pragma mark - Touch
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (![self ballNode]) {
+        [self addBall];
+        return;
+    }
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    
+    CGFloat speed = [config[@"paddle"][@"speed"] floatValue];
+    
+    CGFloat x = location.x;
+    CGFloat diff = abs(x - [self paddleNode].position.x);
+    CGFloat duration = speed * diff;
+    SKAction *move = [SKAction moveToX:x duration:duration];
+    [[self paddleNode] runAction:move];
 }
 
 @end
