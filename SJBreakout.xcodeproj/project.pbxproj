@@ -16,6 +16,10 @@
 		18B63B0C1BA5901E003BAA2F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B63B0B1BA5901E003BAA2F /* Images.xcassets */; };
 		18B63B0F1BA5901E003BAA2F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18B63B0D1BA5901E003BAA2F /* LaunchScreen.xib */; };
 		18B63B1B1BA5901E003BAA2F /* SJBreakoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B63B1A1BA5901E003BAA2F /* SJBreakoutTests.m */; };
+		18B63B261BA59092003BAA2F /* SJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B63B251BA59092003BAA2F /* SJViewController.m */; };
+		18B63B291BA5920C003BAA2F /* SJTitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B63B281BA5920C003BAA2F /* SJTitleScene.m */; };
+		18B63B2B1BA59328003BAA2F /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 18B63B2A1BA59328003BAA2F /* config.json */; };
+		18B63B2E1BA59427003BAA2F /* SJPlayScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B63B2D1BA59427003BAA2F /* SJPlayScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,13 @@
 		18B63B141BA5901E003BAA2F /* SJBreakoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SJBreakoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B63B191BA5901E003BAA2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B63B1A1BA5901E003BAA2F /* SJBreakoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJBreakoutTests.m; sourceTree = "<group>"; };
+		18B63B241BA59092003BAA2F /* SJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJViewController.h; sourceTree = "<group>"; };
+		18B63B251BA59092003BAA2F /* SJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJViewController.m; sourceTree = "<group>"; };
+		18B63B271BA5920C003BAA2F /* SJTitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJTitleScene.h; sourceTree = "<group>"; };
+		18B63B281BA5920C003BAA2F /* SJTitleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJTitleScene.m; sourceTree = "<group>"; };
+		18B63B2A1BA59328003BAA2F /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
+		18B63B2C1BA59427003BAA2F /* SJPlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJPlayScene.h; sourceTree = "<group>"; };
+		18B63B2D1BA59427003BAA2F /* SJPlayScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJPlayScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,15 +99,22 @@
 			children = (
 				18B63AFD1BA5901E003BAA2F /* AppDelegate.h */,
 				18B63AFE1BA5901E003BAA2F /* AppDelegate.m */,
+				18B63B241BA59092003BAA2F /* SJViewController.h */,
+				18B63B251BA59092003BAA2F /* SJViewController.m */,
+				18B63B271BA5920C003BAA2F /* SJTitleScene.h */,
+				18B63B281BA5920C003BAA2F /* SJTitleScene.m */,
 				18B63B001BA5901E003BAA2F /* GameScene.h */,
 				18B63B011BA5901E003BAA2F /* GameScene.m */,
 				18B63B031BA5901E003BAA2F /* GameScene.sks */,
+				18B63B2C1BA59427003BAA2F /* SJPlayScene.h */,
+				18B63B2D1BA59427003BAA2F /* SJPlayScene.m */,
 				18B63B051BA5901E003BAA2F /* GameViewController.h */,
 				18B63B061BA5901E003BAA2F /* GameViewController.m */,
 				18B63B081BA5901E003BAA2F /* Main.storyboard */,
 				18B63B0B1BA5901E003BAA2F /* Images.xcassets */,
 				18B63B0D1BA5901E003BAA2F /* LaunchScreen.xib */,
 				18B63AF91BA5901E003BAA2F /* Supporting Files */,
+				18B63B2A1BA59328003BAA2F /* config.json */,
 			);
 			path = SJBreakout;
 			sourceTree = "<group>";
@@ -209,6 +227,7 @@
 			files = (
 				18B63B0F1BA5901E003BAA2F /* LaunchScreen.xib in Resources */,
 				18B63B0C1BA5901E003BAA2F /* Images.xcassets in Resources */,
+				18B63B2B1BA59328003BAA2F /* config.json in Resources */,
 				18B63B041BA5901E003BAA2F /* GameScene.sks in Resources */,
 				18B63B0A1BA5901E003BAA2F /* Main.storyboard in Resources */,
 			);
@@ -230,7 +249,10 @@
 			files = (
 				18B63B071BA5901E003BAA2F /* GameViewController.m in Sources */,
 				18B63AFF1BA5901E003BAA2F /* AppDelegate.m in Sources */,
+				18B63B291BA5920C003BAA2F /* SJTitleScene.m in Sources */,
+				18B63B2E1BA59427003BAA2F /* SJPlayScene.m in Sources */,
 				18B63B021BA5901E003BAA2F /* GameScene.m in Sources */,
+				18B63B261BA59092003BAA2F /* SJViewController.m in Sources */,
 				18B63AFC1BA5901E003BAA2F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
